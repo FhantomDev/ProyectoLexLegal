@@ -1,0 +1,12 @@
+h1 {
+    font-weight: bold;
+    padding: 10px;
+}
+
+.bg-principal {
+    background-color: lightsteelblue;
+}
+
+.principal p {
+    text-align: justify;
+}
