@@ -10,3 +10,11 @@ h1 {
 .principal p {
     text-align: justify;
 }
+
+#form-login a {
+    text-decoration: none;
+}
+
+.redes {
+    width: 70px;
+}
