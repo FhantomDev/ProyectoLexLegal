@@ -1,6 +1,5 @@
 h1 {
     font-weight: bold;
-    padding: 10px;
 }
 
 .bg-principal {
@@ -18,3 +17,13 @@ h1 {
 .redes {
     width: 70px;
 }
+
+.exito {
+    background-color: palegreen;
+    font-size: 2rem;
+    font-weight: bold;
+    border: solid;
+    border-color: darkgreen;
+    width: 20rem;
+    height: 3em;
+  }

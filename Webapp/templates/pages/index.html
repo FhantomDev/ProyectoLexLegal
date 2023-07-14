@@ -6,10 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!--Bootstrap-->
-  <link rel="stylesheet" href="css/bootstrap.min.css">
+  {% load static %}
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <!--Css-->
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
   <title>LexLegal</title>
 </head>
 
@@ -18,7 +19,7 @@
     <div class="container">
       <div class="row">
         <div class="col-12 col-md-12 bg-info px-0 ">
-          <img src="img/banner.jpg" alt="LexLegal" class="w-100">
+          <img src="{% static 'img/banner.jpg' %}" alt="LexLegal" class="w-100">
         </div>
       </div>
     </div>
@@ -80,30 +81,51 @@
           </div>
         </div>
         <div class="col-12 col-md-3 p-4">
+          {% if request.session.runCliente %}
+          <div class="row mt-3 bg-light d-flex justify-content-center">
+            <div class="m-3 d-flex justify-content-center">
+              Bienvenido {{request.session.runCliente}}
+            </div>
+            <div class="d-flex justify-content-center m-3">
+              <a class="btn btn-primary" href="{% url 'cliente' %}">Panel de control</a>
+            </div>
+            <div class="d-flex justify-content-center m-3">
+              <a class="btn btn-danger" href="{% url 'salir' %}">Cerrar sesión</a>
+            </div>
+          </div>
+          {% elif request.session.runEmpleado %}
+          <div class="row mt-3 bg-light d-flex justify-content-center">
+            <div class="m-3 d-flex justify-content-center">
+              Bienvenido {{request.session.runEmpleado}}
+            </div>
+            <div class="d-flex justify-content-center m-3">
+              <a class="btn btn-primary" href="{% url 'empleado' %}">Panel de control</a>
+            </div>
+            <div class="d-flex justify-content-center m-3">
+              <a class="btn btn-danger" href="{% url 'salir' %}">Cerrar sesión</a>
+            </div>
+          </div>
+          {% else %}
           <div class="row bg-light">
-            <form novalidate action="#" method="post" name="login" id="form-login">
+            <form novalidate action="{% url 'inicioSesion' %}" method="POST" name="login" id="login">
+              {% csrf_token %}
               <div class="m-2">
-                <label for="email" class="form-label">E-mail</label>
-                <input type="email" class="form-control" name="email" id="email-login">
+                <label for="text" class="form-label">Run</label>
+                <input type="text" class="form-control" name="run" id="run" required>
               </div>
               <div class="m-2">
                 <label for="password" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" name="password" id="password-login">
-              </div>
-              <div class="m-2 form-check">
-                <input type="checkbox" name="conectado" class="form-check-input">
-                <label for="conectado" class="form-check-label">Mantener conectado</label>
+                <input type="password" class="form-control" name="password" id="password" required>
               </div>
               <div class="d-grid m-2">
                 <button type="submit" class="btn btn-primary">Iniciar sesión</button>
               </div>
-              <div class="col-12 d-flex justify-content-center align-items-center" id="alerta-login"></div>
+            </form>  
               <div class="m-2 text-center">
-                <span><a href="#">Registrar</a></span><br>
-                <span><a href="#">Recuperar contraseña</a></span>
+                <span><a href="{% url 'registro' %}">Registrar</a></span>
               </div>
-            </form>
           </div>
+          {% endif %}
         </div>
       </div>
     </div>
@@ -144,7 +166,7 @@
       </div>
     </div>
   </footer>
-  <script src="js/bootstrap.bundle.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
 
 </html>
